@@ -63,3 +63,13 @@ func SanitizeFilename(fileName string) string {
 
 	return fileName
 }
+
+func SanitizeDirname(fileName string) string {
+	if fileName == "" {
+		// TODO: Read the default from a config.
+		return "unknown"
+	}
+
+	fileName = regexp.MustCompile(`/[^a-zA-Z0-9_-]/g`).ReplaceAllString(fileName, "")
+	return fileName
+}

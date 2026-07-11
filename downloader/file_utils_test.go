@@ -23,3 +23,14 @@ func TestSanitizeFilename(t *testing.T) {
 		t.Error("The common harmless symbols should remain valid")
 	}
 }
+
+func TestSanitizeDirname(t *testing.T) {
+	inputDirNames := []string{"Kurzgesagt – In a Nutshell", "foo/bar\\baz", "  hello world  ", ""}
+	expectedDirNames := []string{"Kurzgesagt – In a Nutshell", "foobarbaz", "helloworld", "Unknown"}
+
+	for i := range inputDirNames {
+		if inputDirNames[i] != expectedDirNames[i] {
+			t.Error("Invdlid characters must be stripped")
+		}
+	}
+}
