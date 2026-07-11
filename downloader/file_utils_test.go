@@ -31,7 +31,7 @@ func TestSanitizeDirname(t *testing.T) {
 	expectedDirNames := []string{"Kurzgesagt – In a Nutshell", "foobarbaz", "hello world", "Unknown"}
 
 	for i := range inputDirNames {
-		sanitizedDirName := SanitizeDirname(inputDirNames[i])
-		assert.Equal(t, expectedDirNames[i], sanitizedDirName)
+		actualDirName := SanitizeDirname(inputDirNames[i])
+		assert.Equal(t, expectedDirNames[i], actualDirName)
 	}
 }

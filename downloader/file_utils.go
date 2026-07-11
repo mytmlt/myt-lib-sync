@@ -65,14 +65,14 @@ func SanitizeFilename(fileName string) string {
 	return fileName
 }
 
-func SanitizeDirname(fileName string) string {
-	if fileName == "" {
+func SanitizeDirname(dirName string) string {
+	dirName = strings.TrimSpace(dirName)
+	dirName = regexp.MustCompile(`[<>:"/\\|?*]`).ReplaceAllString(dirName, "")
+
+	if dirName == "" {
 		// TODO: Read the default from a config.
 		return "Unknown"
 	}
 
-	fileName = strings.TrimSpace(fileName)
-
-	fileName = regexp.MustCompile(`[<>:"/\\|?*]`).ReplaceAllString(fileName, "")
-	return fileName
+	return dirName
 }
