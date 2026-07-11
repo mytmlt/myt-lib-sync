@@ -2,6 +2,8 @@ package downloader
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSanitizeFilename(t *testing.T) {
@@ -26,11 +28,10 @@ func TestSanitizeFilename(t *testing.T) {
 
 func TestSanitizeDirname(t *testing.T) {
 	inputDirNames := []string{"Kurzgesagt – In a Nutshell", "foo/bar\\baz", "  hello world  ", ""}
-	expectedDirNames := []string{"Kurzgesagt – In a Nutshell", "foobarbaz", "helloworld", "Unknown"}
+	expectedDirNames := []string{"Kurzgesagt – In a Nutshell", "foobarbaz", "hello world", "Unknown"}
 
 	for i := range inputDirNames {
-		if inputDirNames[i] != expectedDirNames[i] {
-			t.Error("Invdlid characters must be stripped")
-		}
+		sanitizedDirName := SanitizeDirname(inputDirNames[i])
+		assert.Equal(t, expectedDirNames[i], sanitizedDirName)
 	}
 }
