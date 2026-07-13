@@ -83,13 +83,13 @@ func createLib(name string, lib config.LibraryConfig) error {
 
 	for n, l := range libs {
 		if lib.Path == l.Path {
-			return fmt.Errorf("a library named %v already exist at path %v", n, lib.Path)
+			return fmt.Errorf("a library named %q already exists at path %q", n, lib.Path)
 		}
 	}
 	_, ok := libs[name]
 
 	if ok {
-		return fmt.Errorf("library with name %v already exists", name)
+		return fmt.Errorf("library with name %q already exists", name)
 	}
 
 	libs[name] = lib
