@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+	"sort"
+	"time"
 
 	"github.com/kkdai/youtube/v2/config"
 	"github.com/mitchellh/go-homedir"
@@ -27,7 +29,7 @@ var libraryCreateCmd = &cobra.Command{
 	Use: "create", Short: "Create a library",
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		lib := config.LibraryConfig{Type: libType, Path: libPath}
+		lib := config.LibraryConfig{Type: libType, Path: libPath, CreatedAt: time.Now()}
 		err := createLib(args[0], lib)
 		exitOnError(err)
 	},
@@ -112,11 +114,19 @@ func readLibs() (map[string]config.LibraryConfig, error) {
 func printLibs(libs map[string]config.LibraryConfig) {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetAutoWrapText(false)
-	table.SetHeader([]string{"Name", "Path", "Type"})
+	table.SetHeader([]string{"Name", "Path", "Type", "Create at"})
 
-	for name, lib := range libs {
+	names := make([]string, 0, len(libs))
+
+	for name := range libs {
+		names = append(names, name)
+	}
+
+	sort.Strings(names)
+
+	for _, name := range names {
 		table.Append([]string{
-			name, lib.Path, lib.Type,
+			name, libs[name].Path, libs[name].Type, libs[name].CreatedAt.Local().String(),
 		})
 	}
 
