@@ -12,3 +12,4 @@ docs/feature-plan-channel-downloads.md
 tasks
 youtubedr
 !youtubedr/
+.nvim.lua
