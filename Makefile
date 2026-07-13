@@ -4,7 +4,7 @@ LOGLEVEL	?= debug
 ## help: Show makefile commands
 .PHONY: help
 help: Makefile
-	@echo "---- Project: kkdai/youtube ----"
+	@echo "---- Project: myt-lib-sync ----"
 	@echo " Usage: make COMMAND"
 	@echo
 	@echo " Management Commands:"

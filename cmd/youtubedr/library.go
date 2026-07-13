@@ -6,7 +6,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/kkdai/youtube/v2/config"
+	"github.com/mytmlt/myt-lib-sync/config"
 	"github.com/mitchellh/go-homedir"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"

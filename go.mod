@@ -1,4 +1,4 @@
-module github.com/kkdai/youtube/v2
+module github.com/mytmlt/myt-lib-sync
 
 go 1.26
 

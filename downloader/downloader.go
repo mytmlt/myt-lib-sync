@@ -9,7 +9,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"github.com/kkdai/youtube/v2"
+	youtube "github.com/mytmlt/myt-lib-sync"
 	"github.com/vbauerster/mpb/v5"
 	"github.com/vbauerster/mpb/v5/decor"
 )
@@ -108,7 +108,8 @@ func (dl *Downloader) DownloadComposite(ctx context.Context, outputFile string, 
 	}
 
 	//nolint:gosec
-	ffmpegVersionCmd := exec.Command("ffmpeg", "-y",
+	ffmpegVersionCmd := exec.Command(
+		"ffmpeg", "-y",
 		"-i", videoFile.Name(),
 		"-i", audioFile.Name(),
 		"-c", "copy", // Just copy without re-encoding
