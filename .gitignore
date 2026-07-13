@@ -6,3 +6,8 @@ download_test
 /output
 *.out
 .DS_Store
+youtubedr
+!youtubedr/
+tasks/
+docs/
+AGENTS.md
