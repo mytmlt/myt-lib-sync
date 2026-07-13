@@ -3,6 +3,7 @@ package downloader
 import (
 	"mime"
 	"regexp"
+	"strings"
 )
 
 const defaultExtension = ".mov"
@@ -62,4 +63,16 @@ func SanitizeFilename(fileName string) string {
 	fileName = regexp.MustCompile(`\s+`).ReplaceAllString(fileName, " ")
 
 	return fileName
+}
+
+func SanitizeDirname(dirName string) string {
+	dirName = strings.TrimSpace(dirName)
+	dirName = regexp.MustCompile(`[<>:"/\\|?*]`).ReplaceAllString(dirName, "")
+
+	if dirName == "" {
+		// TODO: Read the default from a config.
+		return "Unknown"
+	}
+
+	return dirName
 }

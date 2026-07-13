@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
@@ -53,12 +54,12 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".youtube" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".youtubedr")
+		viper.SetConfigFile(filepath.Join(home, ".youtubedr"))
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
+
+	viper.SetConfigType("yaml")
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {

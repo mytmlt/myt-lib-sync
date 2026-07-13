@@ -2,6 +2,8 @@ package downloader
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSanitizeFilename(t *testing.T) {
@@ -21,5 +23,15 @@ func TestSanitizeFilename(t *testing.T) {
 	sanitized = SanitizeFilename(fileName)
 	if sanitized != "~!@#$%^&()[].," {
 		t.Error("The common harmless symbols should remain valid")
+	}
+}
+
+func TestSanitizeDirname(t *testing.T) {
+	inputDirNames := []string{"Kurzgesagt – In a Nutshell", "foo/bar\\baz", "  hello world  ", ""}
+	expectedDirNames := []string{"Kurzgesagt – In a Nutshell", "foobarbaz", "hello world", "Unknown"}
+
+	for i := range inputDirNames {
+		actualDirName := SanitizeDirname(inputDirNames[i])
+		assert.Equal(t, expectedDirNames[i], actualDirName)
 	}
 }

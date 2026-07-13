@@ -6,8 +6,10 @@ download_test
 /output
 *.out
 .DS_Store
+AGENTS.md
+docs/current-download-flow.md
+docs/feature-plan-channel-downloads.md
+tasks
 youtubedr
 !youtubedr/
-tasks/
-docs/
-AGENTS.md
+.nvim.lua
