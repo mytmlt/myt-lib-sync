@@ -10,6 +10,6 @@ AGENTS.md
 docs/current-download-flow.md
 docs/feature-plan-channel-downloads.md
 tasks
-youtubedr
-!youtubedr/
 .nvim.lua
+myt-lib-sync
+!myt-lib-sync/
