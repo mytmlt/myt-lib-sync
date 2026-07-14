@@ -6,8 +6,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/mytmlt/myt-lib-sync/config"
 	"github.com/mitchellh/go-homedir"
+	"github.com/mytmlt/myt-lib-sync/config"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -32,6 +32,13 @@ var libraryCreateCmd = &cobra.Command{
 		lib := config.LibraryConfig{Type: libType, Path: libPath, CreatedAt: time.Now()}
 		err := createLib(args[0], lib)
 		exitOnError(err)
+	},
+}
+
+var libraryAddCmd = &cobra.Command{
+	Use: "add", Short: "Add media to a library",
+	Args: cobra.ExactArgs(1),
+	Run: func(cmd *cobra.Command, args []string) {
 	},
 }
 
@@ -134,7 +141,7 @@ func printLibs(libs map[string]config.LibraryConfig) {
 }
 
 func init() {
-	libraryCommand.AddCommand(libraryCreateCmd, libraryListCmd, libraryDeleteCmd)
+	libraryCommand.AddCommand(libraryCreateCmd, libraryListCmd, libraryDeleteCmd, libraryAddCmd)
 	libraryCreateCmd.Flags().StringVarP(&libPath, "path", "p", ".", "The output dir of the library")
 	libraryCreateCmd.Flags().StringVarP(&libType, "type", "t", "video", "Type of content video or music")
 	rootCmd.AddCommand(libraryCommand)
