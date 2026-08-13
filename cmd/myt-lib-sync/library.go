@@ -1,12 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"sort"
 	"time"
 
 	"github.com/mitchellh/go-homedir"
+	youtube "github.com/mytmlt/myt-lib-sync"
 	"github.com/mytmlt/myt-lib-sync/config"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
@@ -37,8 +39,28 @@ var libraryCreateCmd = &cobra.Command{
 
 var libraryAddCmd = &cobra.Command{
 	Use: "add", Short: "Add media to a library",
-	Args: cobra.ExactArgs(1),
+	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
+		libName := args[0]
+		url := args[1]
+
+		fmt.Printf("%v %v\n", libName, url)
+
+		video, format, err := getVideoWithFormat(url)
+		exitOnError(err)
+
+		output := struct {
+			Selected *youtube.Format   `json:"selected"`
+			All      youtube.FormatList `json:"all"`
+		}{
+			Selected: format,
+			All:      video.Formats,
+		}
+
+		data, err := json.MarshalIndent(output, "", "  ")
+		exitOnError(err)
+
+		exitOnError(os.WriteFile("formats.json", data, 0644))
 	},
 }
 
